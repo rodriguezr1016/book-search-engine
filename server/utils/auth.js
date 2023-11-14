@@ -5,14 +5,14 @@ const secret = "mysecretstar";
 const expiration = "2h";
 
 module.exports = {
- 
+
   authMiddleware: function ({ req }) {
-   
+  
 
     let token = req.body.token || req.query.token || req.headers.authorization;
 
 
-    
+
     if (req.headers.authorization) {
       token = token.split(" ").pop().trim();
     }
@@ -21,17 +21,17 @@ module.exports = {
       return req;
     }
 
-    
+
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       const user = data;
       return { user };
     } catch {
       console.log("Invalid token");
-      
+    
     }
 
-    
+
     return req;
   },
   

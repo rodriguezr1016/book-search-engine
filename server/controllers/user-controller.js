@@ -2,7 +2,6 @@ const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 
 module.exports = {
-  
   async getSingleUser({ user = null, params }, res) {
     const foundUser = await User.findOne({
       $or: [{ _id: user ? user._id : params.id }, { username: params.username }],
@@ -14,7 +13,7 @@ module.exports = {
 
     res.json(foundUser);
   },
-  
+
   async createUser({ body }, res) {
     const user = await User.create(body);
 
@@ -38,7 +37,6 @@ module.exports = {
     const token = signToken(user);
     res.json({ token, user });
   },
-  
   async saveBook({ user, body }, res) {
     console.log(user);
     try {
